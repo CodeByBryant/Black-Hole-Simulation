@@ -1,14 +1,20 @@
+<div align="center">
+
 # Black Hole Simulation
 
 Watch objects orbit, collide, and get sucked into a black hole—all in real-time 3D with interactive controls.
 
-## What You Get
+[![Made with C++](https://img.shields.io/badge/Made%20with-C%2B%2B-blue?style=for-the-badge&logo=cplusplus)](https://cplusplus.com/)
+[![OpenGL](https://img.shields.io/badge/OpenGL-3.3-darkgreen?style=for-the-badge&logo=khronos)](https://www.khronos.org/opengl/)
+[![License](https://img.shields.io/github/license/CodeByBryant/Portfolio?style=for-the-badge)](LICENSE)
 
-- **Real-time 3D visualization** of a black hole and orbiting objects
-- **Realistic physics** including gravity, orbital mechanics, and an event horizon
-- **Interactive controls** to add objects, change the simulation speed, and move the camera around
-- **Glowing accretion disk** and starfield background
-- **Smooth performance** at 60 FPS
+![Status](https://img.shields.io/badge/Status-Live-success?style=flat-square)
+![Build](https://img.shields.io/badge/Build-Passing-success?style=flat-square)
+![Maintained](https://img.shields.io/badge/Maintained-Yes-success?style=flat-square)
+
+</div>
+
+---
 
 ## Quick Start
 
