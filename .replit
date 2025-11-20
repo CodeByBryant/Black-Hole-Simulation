@@ -1,0 +1,34 @@
+modules = ["cpp-clang14"]
+[agent]
+expertMode = true
+
+[nix]
+channel = "stable-25_05"
+packages = ["cmake", "pkg-config", "glfw", "glew", "glm", "xorg.libX11", "xorg.libXrandr", "xorg.libXinerama", "xorg.libXcursor", "xorg.libXi", "mesa", "xvfb-run", "x11vnc", "xorg.xorgserver", "libGL", "libGLU"]
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Black Hole Simulation"
+
+[[workflows.workflow]]
+name = "Black Hole Simulation"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "bash run.sh"
+
+[workflows.workflow.metadata]
+outputType = "vnc"
+
+[[ports]]
+localPort = 5000
+externalPort = 6000
