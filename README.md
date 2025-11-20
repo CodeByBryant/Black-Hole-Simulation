@@ -168,7 +168,7 @@ blackhole-simulation/
 │   └── accretion.frag    # Accretion disk fragment shader
 ├── imgui/                # ImGui library
 ├── CMakeLists.txt        # Build configuration
-├── run.sh                # VNC launch script
+├── run.sh                # Launch script
 └── README.md             # This file
 ```
 
