@@ -11,13 +11,14 @@ void PhysicsEngine::addObject(SimObject* obj) {
 }
 
 void PhysicsEngine::removeObject(int index) {
-    if (index >= 0 && index < objects.size()) {
+    if (index >= 0 && index < static_cast<int>(objects.size())) {
         delete objects[index];
         objects.erase(objects.begin() + index);
     }
 }
 
 void PhysicsEngine::update(float dt) {
+    // First, update all objects
     for (size_t i = 0; i < objects.size(); i++) {
         glm::vec3 totalForce(0.0f);
         
@@ -33,10 +34,14 @@ void PhysicsEngine::update(float dt) {
         
         objects[i]->addForce(totalForce, dt);
         objects[i]->update(dt);
-        
-        if (blackHole && blackHole->isInsideEventHorizon(objects[i]->position)) {
-            removeObject(i);
-            i--;
+    }
+    
+    // Then, remove objects that fell into the black hole (iterate backwards to avoid issues)
+    if (blackHole) {
+        for (int i = static_cast<int>(objects.size()) - 1; i >= 0; i--) {
+            if (blackHole->isInsideEventHorizon(objects[i]->position)) {
+                removeObject(i);
+            }
         }
     }
 }

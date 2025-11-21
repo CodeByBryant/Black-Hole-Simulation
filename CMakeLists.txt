@@ -4,14 +4,23 @@ project(BlackHoleSimulation)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Prefer GLVND (modern) over legacy OpenGL libraries
+if(POLICY CMP0072)
+    cmake_policy(SET CMP0072 NEW)
+endif()
+
+# Find dependencies via pkg-config
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(GL REQUIRED gl)
 pkg_check_modules(GLEW REQUIRED glew)
 pkg_check_modules(GLFW REQUIRED glfw3)
-pkg_check_modules(GLM REQUIRED glm)
+
+# GLM is header-only, so we try pkg-config but don't require it
+pkg_check_modules(GLM glm)
+
+# Find OpenGL using standard CMake module as fallback
+find_package(OpenGL REQUIRED)
 
 include_directories(
-    ${GL_INCLUDE_DIRS}
     ${GLEW_INCLUDE_DIRS}
     ${GLFW_INCLUDE_DIRS}
     ${GLM_INCLUDE_DIRS}
@@ -20,7 +29,6 @@ include_directories(
 )
 
 link_directories(
-    ${GL_LIBRARY_DIRS}
     ${GLEW_LIBRARY_DIRS}
     ${GLFW_LIBRARY_DIRS}
 )
@@ -46,7 +54,7 @@ add_executable(blackhole_sim
 )
 
 target_link_libraries(blackhole_sim
-    ${GL_LIBRARIES}
+    OpenGL::GL
     ${GLEW_LIBRARIES}
     ${GLFW_LIBRARIES}
     X11
