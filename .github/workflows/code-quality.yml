@@ -1,0 +1,91 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  format-check:
+    name: Check Code Formatting
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Install clang-format
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y clang-format
+    
+    - name: Check formatting
+      run: |
+        echo "Checking code formatting..."
+        # Find all C++ source and header files
+        FILES=$(find src include -type f \( -name "*.cpp" -o -name "*.h" \) 2>/dev/null || true)
+        
+        if [ -z "$FILES" ]; then
+          echo "No C++ files found to check"
+          exit 0
+        fi
+        
+        # Check if files need formatting
+        NEEDS_FORMAT=0
+        for file in $FILES; do
+          if ! clang-format --dry-run --Werror "$file" 2>/dev/null; then
+            echo "::warning file=$file::File needs formatting"
+            NEEDS_FORMAT=1
+          fi
+        done
+        
+        if [ $NEEDS_FORMAT -eq 1 ]; then
+          echo ""
+          echo "Some files need formatting. Run the following to fix:"
+          echo "  clang-format -i \$(find src include -type f \( -name '*.cpp' -o -name '*.h' \))"
+          exit 1
+        else
+          echo "All files are properly formatted!"
+        fi
+  
+  static-analysis:
+    name: Static Analysis
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          cmake \
+          build-essential \
+          libgl1-mesa-dev \
+          libglfw3-dev \
+          libglew-dev \
+          libglm-dev \
+          pkg-config \
+          cppcheck
+    
+    - name: Run cppcheck
+      run: |
+        echo "Running static analysis..."
+        cppcheck --enable=warning,style,performance,portability \
+          --suppress=missingIncludeSystem \
+          --inline-suppr \
+          --error-exitcode=0 \
+          --std=c++17 \
+          -I include \
+          src/ 2>&1 | tee cppcheck-report.txt
+        
+        # Count issues (excluding informational messages)
+        ISSUES=$(grep -c "\[" cppcheck-report.txt || true)
+        echo "Found $ISSUES potential issues"
+        
+        # Display the report but don't fail the build for now
+        if [ $ISSUES -gt 0 ]; then
+          echo "::notice::Static analysis found $ISSUES potential issues. Review cppcheck-report.txt for details."
+        fi
