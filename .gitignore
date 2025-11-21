@@ -46,3 +46,6 @@ compile_commands.json
 # Dependencies
 lib/
 include_local/
+
+# CodeQL
+_codeql_detected_source_root
