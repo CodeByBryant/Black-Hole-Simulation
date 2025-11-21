@@ -19,4 +19,4 @@ BreakBeforeBraces: Attach
 IndentCaseLabels: false
 NamespaceIndentation: None
 SpaceBeforeParens: ControlStatements
-Standard: Cpp11
+Standard: c++17

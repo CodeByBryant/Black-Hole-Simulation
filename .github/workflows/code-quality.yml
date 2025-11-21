@@ -79,7 +79,10 @@ jobs:
           --error-exitcode=0 \
           --std=c++17 \
           -I include \
-          src/ 2>&1 | tee cppcheck-report.txt
+          src/ 2> cppcheck-report.txt
+        
+        # Display the report
+        cat cppcheck-report.txt
         
         # Count issues (excluding informational messages)
         ISSUES=$(grep -c "\[" cppcheck-report.txt || true)
