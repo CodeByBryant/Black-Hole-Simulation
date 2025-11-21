@@ -2,8 +2,11 @@
 
 set -e
 
-sudo apt-get update
-sudo apt-get install libglew-dev
+# Install required packages
+if command -v apt-get &> /dev/null; then
+    sudo apt-get update
+    sudo apt-get install -y cmake build-essential libgl-dev libglfw3-dev libglew-dev pkg-config
+fi
 
 # Get the directory where this script is located
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
