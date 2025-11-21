@@ -8,10 +8,6 @@ Watch objects orbit, collide, and get sucked into a black hole—all in real-tim
 [![OpenGL](https://img.shields.io/badge/OpenGL-3.3-darkgreen?style=for-the-badge&logo=khronos)](https://www.khronos.org/opengl/)
 [![License](https://img.shields.io/github/license/CodeByBryant/Portfolio?style=for-the-badge)](LICENSE)
 
-![Status](https://img.shields.io/badge/Status-Live-success?style=flat-square)
-![Build](https://img.shields.io/badge/Build-Passing-success?style=flat-square)
-![Maintained](https://img.shields.io/badge/Maintained-Yes-success?style=flat-square)
-
 </div>
 
 ---
