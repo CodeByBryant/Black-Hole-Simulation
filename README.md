@@ -18,37 +18,12 @@ Watch objects orbit, collide, and get sucked into a black hole—all in real-tim
 
 ## Quick Start
 
-### On Replit
 Simply run:
 ```bash
 ./run.sh
 ```
 
 The script will build everything and launch the simulation automatically.
-
-### On Your Own Computer
-
-**Linux/Mac with Homebrew:**
-```bash
-brew install cmake glfw glew glm
-
-mkdir build && cd build
-cmake ..
-make -j$(nproc)
-cd ..
-./build/blackhole_sim
-```
-
-**Linux (apt):**
-```bash
-sudo apt-get install build-essential cmake libglfw3-dev libglew-dev libglm-dev libx11-dev
-
-mkdir build && cd build
-cmake ..
-make -j$(nproc)
-cd ..
-./build/blackhole_sim
-```
 
 ## How to Use It
 
